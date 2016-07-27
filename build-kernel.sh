@@ -6,8 +6,11 @@ else
 	CONFIG=
 fi
 
+SCRIPTDIR="$PWD"
+
 OUTDIR="$PWD/out"
 mkdir -p "$OUTDIR"
+cp fingerprint.sh "$OUTDIR"/
 
 . ver.sh
 
@@ -15,9 +18,9 @@ mkdir -p "$OUTDIR"
 
 . concur.sh
 
-. fixed-dir.sh
+. fingerprint.sh
 
-KERNEL_TIMESTAMP="Mon Jul 25 14:41:53 SGT 2016"
+. fixed-dir.sh
 
 TOOLS_PREFIX="$FIXED_DIRECTORY/tools"
 
@@ -58,6 +61,8 @@ export KBUILD_BUILD_HOST=grsec
 export KCONFIG_NOTIMESTAMP=1
 export XZ_OPT="--check=crc64"
 export ROOT_DEV=FLOPPY
+
+sed "s/@SEED@/$GRSEC_RANDSTRUCT_SEED/g" < "$SCRIPTDIR"/hacks/gen-random-seed.sh.in > scripts/gcc-plugins/gen-random-seed.sh
 
 if [ "$CONFIG" ]; then
 	cp $CONFIG .config
