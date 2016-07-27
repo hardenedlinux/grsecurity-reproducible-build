@@ -8,6 +8,7 @@ fi
 
 OUTDIR="$PWD/out"
 mkdir -p "$OUTDIR"
+cp fingerprint.sh "$OUTDIR"/
 
 . ver.sh
 
@@ -17,7 +18,7 @@ mkdir -p "$OUTDIR"
 
 . fixed-dir.sh
 
-KERNEL_TIMESTAMP="Mon Jul 25 14:41:53 SGT 2016"
+. fingerprint.sh
 
 TOOLS_PREFIX="$FIXED_DIRECTORY/tools"
 
