@@ -150,7 +150,7 @@ AR=ar ../configure --prefix="$TOOLS_PREFIX" --target="$TOOLS_TRIPLET" \
 		   --disable-threads \
 		   --disable-multilib \
 		   --enable-languages=c
-make "$TOOLCHAIN_CONCUR" all-gcc all-target-libgcc all-target-libssp
-make install-gcc install-target-libgcc install-target-libssp
+make "$TOOLCHAIN_CONCUR" all-gcc all-target-libgcc
+make install-gcc install-target-libgcc
 
 cd ../..
