@@ -22,7 +22,7 @@ The key is either generated at build time (from /dev/random, which made the key 
 
 Although support for pre-generated key-pair can be implemented, it's not implemented now.
 
-So the option should be disabled now.
+So the option should be *DISABLED* now.
 
 **TODO**: support for external pre-generated key-pair.
 
@@ -32,4 +32,12 @@ When this option is enabled, the generated binary code will contain some random 
 
 Enabling this option will lead to irreproducible builds.
 
-So the option should be disabled now.
+So the option should be *DISABLED* now.
+
+### CONFIG_GRKERNSEC_RANDSTRUCT (Randomize layout of sensitive kernel structures)
+
+When this option is enabled, the generated binary will have sensitive kernel structures randomized.
+
+It uses a seed from /dev/urandom at build time, however, currently the scripts have already hacked the seed generation process. Now the seed is part of the build fingerprint.
+
+So the option is now *safe to ENABLE*.
