@@ -16,9 +16,9 @@ cp fingerprint.sh "$OUTDIR"/
 
 . concur.sh
 
-. fixed-dir.sh
-
 . fingerprint.sh
+
+. fixed-dir.sh
 
 TOOLS_PREFIX="$FIXED_DIRECTORY/tools"
 
