@@ -32,7 +32,6 @@ LINUX_TBL_DECMP="unxz"
 LINUX_TBL="linux-${LINUX_VER}.tar"
 LINUX_DIR="linux-${LINUX_VER}"
 
-GRSEC_SRC="https://grsecurity.net/test/grsecurity-${GRSEC_VER}.patch"
 GRSEC_FILE="grsecurity-${GRSEC_VER}.patch"
 
 if [ ! -e "$LINUX_TBL" ]; then
@@ -43,11 +42,12 @@ if [ ! -e "$LINUX_TBL" ]; then
 fi
 
 if [ ! -e "$GRSEC_FILE" ]; then
-	wget "$GRSEC_SRC" -O "$GRSEC_FILE"
+	cp "$SCRIPTDIR/$GRSEC_FILE" .
 fi
 
 # Ensure the build is clean
 rm -rf "$LINUX_DIR"
+rm *.deb
 
 tar xvf "$LINUX_TBL"
 
@@ -71,7 +71,8 @@ if [ "$CONFIG" ]; then
 else
 	make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- defconfig
 fi
-make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- "$KERNEL_CONCUR"
+make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- "$KERNEL_CONCUR" bindeb-pkg
 
+cp ../*.deb "$OUTDIR"/
 cp arch/x86/boot/bzImage vmlinux "$OUTDIR"/
 make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- INSTALL_MOD_PATH="$OUTDIR" modules_install
