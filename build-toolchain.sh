@@ -153,4 +153,9 @@ AR=ar ../configure --prefix="$TOOLS_PREFIX" --target="$TOOLS_TRIPLET" \
 make "$TOOLCHAIN_CONCUR" all-gcc all-target-libgcc
 make install-gcc install-target-libgcc
 
+cp gmp/gmp.h ../gmp/gmpxx.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
+cp ../mpfr/src/mpf{r,2mpfr}.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
+cp ../mpc/src/mpc.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
+cp -r ../isl/include/isl "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
+
 cd ../..
