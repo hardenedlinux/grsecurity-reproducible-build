@@ -1,9 +1,9 @@
 #! /bin/bash -e
 
-DEBEMAIL="voldemort@ministry_of_magic"
-DEBFULLNAME="Who Must Not Be Named"
+export DEBEMAIL="voldemort@ministry_of_magic"
+export DEBFULLNAME="Who Must Not Be Named"
 
-KDEB_CHANGELOG_DIST="Debian"
+export KDEB_CHANGELOG_DIST="Debian"
 
 if [ -e config ]; then
 	CONFIG="$PWD/config"
