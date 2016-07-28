@@ -1,5 +1,10 @@
 #! /bin/bash -e
 
+DEBEMAIL="voldemort@ministry_of_magic"
+DEBFULLNAME="Who Must Not Be Named"
+
+KDEB_CHANGELOG_DIST="Debian"
+
 if [ -e config ]; then
 	CONFIG="$PWD/config"
 else
@@ -65,6 +70,8 @@ export ROOT_DEV=FLOPPY
 chmod 755 scripts/gcc-plugin.sh # Without this command, the script cannot be executed under Debian.
 
 sed "s/@SEED@/$GRSEC_RANDSTRUCT_SEED/g" < "$SCRIPTDIR"/hacks/gen-random-seed.sh.in > scripts/gcc-plugins/gen-random-seed.sh
+
+sed -i 's/$(date -R)/$(date -R --date="'"$KERNEL_TIMESTAMP"'")/g' scripts/package/builddeb
 
 if [ "$CONFIG" ]; then
 	cp $CONFIG .config
