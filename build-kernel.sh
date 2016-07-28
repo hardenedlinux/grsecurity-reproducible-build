@@ -47,7 +47,7 @@ fi
 
 # Ensure the build is clean
 rm -rf "$LINUX_DIR"
-rm *.deb
+rm -f *.deb
 
 tar xvf "$LINUX_TBL"
 
