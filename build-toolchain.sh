@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+export TZ=UTC
+
 . ver.sh
 
 . arch.sh

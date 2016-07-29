@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+export TZ=UTC
+
 if [ "$1" = "--help" ]; then
 	echo \
 "Usage: $0" "

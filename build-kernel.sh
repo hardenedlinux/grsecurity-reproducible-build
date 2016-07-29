@@ -1,5 +1,7 @@
 #! /bin/bash -e
 
+export TZ=UTC
+
 export DEBEMAIL="voldemort@ministry_of_magic"
 export DEBFULLNAME="Who Must Not Be Named"
 
