@@ -48,12 +48,14 @@ if [ "$1" != "" ]; then
 	else
 		cp "$1" fingerprint.sh
 	fi
-elif [ "$2" = "fingerprint.sh" ]; then
+elif [ "$1" = "fingerprint.sh" ]; then
 	# Do nothing
 	:
 else
-	echo "Generating new build fingerprint..."
-	./gen-fingerprint.sh
+	if [ ! -e fingerprint.sh ]; then
+		echo "Generating new build fingerprint..."
+		./gen-fingerprint.sh
+	fi
 fi
 
 if [ "$2" = "config" ]; then
