@@ -2,6 +2,18 @@
 
 These scripts are intended to do reproducible build for Linux kernel with Grsecurity patch set.
 
+## Dependencies
+
+The kernel building script will need the standard kernel building dependencies to be install.
+
+### Debian-derived distributions
+
+Use the command below to install the dependencies needed.
+
+```
+sudo apt-get install build-essential bc flex bison
+```
+
 ## Usage
 
 To build the kernel deterministically, a certain kernel build directory is necessary. Currently /kbuild is chosen to be the fixed directory. So you should at first create it and grant rwx permission of the directory for the UNIX user you used to build the kernel.
