@@ -4,13 +4,17 @@ These scripts are intended to do reproducible build for Linux kernel with Grsecu
 
 ## Usage
 
-```
-./build-toolchain.sh # Build a intermediate toolchain
-./gen-fingerprint.sh # Or copy other build fingerprint to fingerprint.sh
-./build-kernel.sh # Build the kernel itself
-```
+To build the kernel deterministically, a certain kernel build directory is necessary. Currently /kbuild is chosen to be the fixed directory. So you should at first create it and grant rwx permission of the directory for the UNIX user you used to build the kernel.
 
-Then the output kernel (bzImage, vmlinux, modules, and build fingerprint) is located at out/
+After preparing the directory, you can place a kernel config file named "config" in this directory, and then just run "run.sh".
+
+Then the output kernel (bzImage, vmlinux, modules, DPKG packages and build fingerprint) is located at out/
+
+## DPKG packages notice
+
+Currently, we cannot ensure DPKG packages to be reproducible. However, we can promise the content of all the packages are reproducible.
+
+A shell script named "deb-diff.sh" is present to compare the content of two DPKG packages. It will simply extract files from the package, and then use "diff" command to check the difference of them.
 
 ## Config options to be noted
 
