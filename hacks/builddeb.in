@@ -23,6 +23,9 @@ create_package() {
 	sh -c "cd '$pdir'; find . -type f ! -path './DEBIAN/*' -printf '%P\0' \
 		| xargs -r0 md5sum > DEBIAN/md5sums"
 
+	sort < "$pdir/DEBIAN/md5sums" > "$pdir/DEBIAN/md5sums.sorted"
+	mv "$pdir/DEBIAN/md5sums.sorted" "$pdir/DEBIAN/md5sums"
+
 	# Fix ownership and permissions
 	chown -R root:root "$pdir"
 	chmod -R go-w "$pdir"
