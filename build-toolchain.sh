@@ -133,6 +133,11 @@ mv "$MPC_DIR" mpc
 tar xvfJ ../"$ISL_TBL"
 mv "$ISL_DIR" isl
 
+# ugly hack to ensure GCC make use of the behavior of internal ssp in libc
+# While building kernel, the kernel itself plays the role of libc ;-)
+# But the gcc do not know that the kernel "libc" exists and cannot detect it
+sed -i 's/gcc_cv_libc_provides_ssp=no/gcc_cv_libc_provides_ssp=yes/g' gcc/configure
+
 mkdir -p build
 cd build
 
