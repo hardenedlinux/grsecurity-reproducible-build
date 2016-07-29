@@ -8,6 +8,8 @@ To build the kernel deterministically, a certain kernel build directory is neces
 
 After preparing the directory, you can place a kernel config file named "config" in this directory, and then just run "run.sh".
 
+If you do not have the necessary GPG public key imported to verify the signature of GNU things and the Linux Kernel, you can set VERIFY_GPG environment variable to 0, thus signature verifying will be disabled.
+
 Then the output kernel (bzImage, vmlinux, modules, DPKG packages and build fingerprint) is located at out/
 
 ## DPKG packages notice
