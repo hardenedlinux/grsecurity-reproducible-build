@@ -18,7 +18,23 @@ sudo apt-get install build-essential bc flex bison
 
 To build the kernel deterministically, a certain kernel build directory is necessary. Currently /kbuild is chosen to be the fixed directory. So you should at first create it and grant rwx permission of the directory for the UNIX user you used to build the kernel.
 
+As a directory under /, root access will be needed to create this directory.
+
+```
+sudo mkdir /kbuild
+# Assume we're using the kernelbuild user
+sudo chown kernelbuild /kbuild
+```
+
 After preparing the directory, you can place a kernel config file named "config" in this directory, and then just run "run.sh".
+
+Some kernel configs modified to enable PaX and being deterministic is placed under configs/, include:
+
+- configs/paxed-allnoconfig: an all-no config with PaX and module support enabled, only for testing purpose.
+
+- configs/paxed-defconfig: defconfig with PaX enabled, can be used as a basis to customify the config.
+
+- configs/paxed-mint-config: a config file from Linux Mint 18 with PaX enabled, can be directly used on Debian-derived distributions without modification.
 
 If you do not have the necessary GPG public key imported to verify the signature of GNU things and the Linux Kernel, you can set VERIFY_GPG environment variable to 0, thus signature verifying will be disabled.
 
