@@ -65,6 +65,13 @@ if [ "$2" = "config" ]; then
 	:
 elif [ "$2" != "" ]; then
 	cp "$2" config
+else
+	if [ ! -e config ]; then
+		echo "No config file specified!"
+		echo "Please specify a config file."
+		echo "Recommended config file:"
+		echo "$PWD/configs/paxed-mint-config is a configuration file derived from Linux Mint's configuration, which is suitablefor using on Debian-derived distributions."
+		exit 1
 fi
 
 if [ ! -e concur.sh ]; then
