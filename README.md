@@ -75,11 +75,3 @@ When this option is enabled, the generated binary will have sensitive kernel str
 It uses a seed from /dev/urandom at build time, however, currently the scripts have already hacked the seed generation process. Now the seed is part of the build fingerprint.
 
 So the option is now *safe to ENABLE*.
-
-### CONFIG_CC_STACKPROTECTOR\* (Stack Protector buffer overflow detection)
-
-When this option is set to "Regular" or "Strong", some stack-overflow check code will be inserted.
-
-As this option needs a compiler with SSP support (The temporary toolchain built by build-toolchain.sh do not support SSP), this feature cannot be enabled.
-
-So the option should be *NONE* now.
