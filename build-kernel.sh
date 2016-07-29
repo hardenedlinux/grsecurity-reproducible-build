@@ -60,6 +60,8 @@ cd "$LINUX_DIR"
 
 patch -Np1 -i ../"$GRSEC_FILE"
 
+cp "$SCRIPTDIR"/fingerprint.sh .
+
 export KBUILD_BUILD_TIMESTAMP="${KERNEL_TIMESTAMP}"
 export DEB_BUILD_TIMESTAMP="$(date --date="${KERNEL_TIMESTAMP}" +%s)"
 export SOURCE_DATE_EPOCH="$DEB_BUILD_TIMESTAMP"

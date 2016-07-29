@@ -143,6 +143,11 @@ if [ "$ARCH" = "um" ] ; then
 else
 	cp System.map "$tmpdir/boot/System.map-$version"
 	cp $KCONFIG_CONFIG "$tmpdir/boot/config-$version"
+	if [ -e "fingerprint.sh" ]; then
+		cp fingerprint.sh "$tmpdir/boot/fingerprint.sh-$version"
+	else
+		true
+	fi
 fi
 # Not all arches include the boot path in KBUILD_IMAGE
 if [ -e $KBUILD_IMAGE ]; then
