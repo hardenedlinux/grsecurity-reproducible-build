@@ -45,7 +45,11 @@ if [ ! -e "$LINUX_TBL" ]; then
 	wget "$LINUX_SRC" -O "$LINUX_TBL_CMP"
 	wget "$LINUX_SIGN" -O "$LINUX_SIGN_FILE"
 	"$LINUX_TBL_DECMP" "$LINUX_TBL_CMP"
-	gpg --verify "$LINUX_SIGN_FILE" "$LINUX_TBL"
+	if [ "$VERIFY_GPG" != "0"]; then
+		gpg --verify "$LINUX_SIGN_FILE" "$LINUX_TBL"
+	else
+		true
+	fi
 fi
 
 if [ ! -e "$GRSEC_FILE" ]; then
