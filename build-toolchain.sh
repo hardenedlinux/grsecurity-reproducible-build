@@ -149,6 +149,7 @@ AR=ar ../configure --prefix="$TOOLS_PREFIX" --target="$TOOLS_TRIPLET" \
 		   --disable-libvtv \
 		   --disable-libcilkrts \
 		   --disable-libstdc++-v3 \
+		   --disable-libssp \
 		   --disable-threads \
 		   --disable-multilib \
 		   --enable-languages=c
