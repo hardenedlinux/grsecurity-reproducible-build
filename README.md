@@ -5,6 +5,7 @@ Thanks to:
 - PaX/Grsecurity
 - Debian GNU/Linux Community
 - Shawn C[a.k.a "Citypw"]
+- Linux From Scratch
 
 Copyright (c) TYA infotech ltd http://tya.company/
 
