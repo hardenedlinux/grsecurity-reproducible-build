@@ -1,2 +1,4 @@
+# Extra arguments to pass to "make" process when building the toolchain
 export TOOLCHAIN_CONCUR=-j4
+# Extra arguments to pass to "make" process when building the kernel
 export KERNEL_CONCUR=-j4
