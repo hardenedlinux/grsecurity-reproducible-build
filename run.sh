@@ -72,6 +72,7 @@ else
 		echo "Recommended config file:"
 		echo "$PWD/configs/paxed-mint-config is a configuration file derived from Linux Mint's configuration, which is suitablefor using on Debian-derived distributions."
 		exit 1
+	fi
 fi
 
 if [ ! -e concur.sh ]; then
