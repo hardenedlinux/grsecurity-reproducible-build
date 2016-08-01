@@ -89,3 +89,9 @@ acpi-call-1.1.0 # make KDIR=/kbuild/linux-4.6.5 CROSS_COMPILE=/kbuild/tools/bin/
 ```
 
 **TODO**: add a framework for easily building of out-of-tree modules.
+
+## Credits
+
+Maintainer: Icenowy Zheng <icenowy@aosc.xyz>
+
+Copyright (c) TYA infotech ltd http://tya.company/
