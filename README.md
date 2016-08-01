@@ -8,9 +8,9 @@ Thanks to:
 
 Copyright (c) TYA infotech ltd http://tya.company/
 
-# Grsecurity Reproducible build scripts
+# Reproducible builds for PaX/Grsecurity
 
-These scripts are intended to do reproducible build for Linux kernel with Grsecurity patch set.
+These scripts are intended to do reproducible builds for Linux kernel with Grsecurity patch set.
 
 ## Dependencies
 
