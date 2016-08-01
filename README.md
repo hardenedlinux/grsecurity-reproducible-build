@@ -75,3 +75,17 @@ When this option is enabled, the generated binary will have sensitive kernel str
 It uses a seed from /dev/urandom at build time, however, currently the scripts have already hacked the seed generation process. Now the seed is part of the build fingerprint.
 
 So the option is now *safe to ENABLE*.
+
+## Out-of-tree kernel modules notes
+
+As the build system used a "x86_64 to x86_64 cross-compiler", the modules cannot be built with the host compiler.
+
+So if an out-of-tree module needs to be built, you should use the linux kernel source tree under /kbuild/linux-4.6.5, and add "CROSS_COMPILE=/kbuild/tools/bin/x86_64-kernelonly-linux-gnu-" argument to the make command.
+
+For example, to build the acpi-call kernel module (which uses KDIR variable to indicate the kernel source tree):
+
+```
+acpi-call-1.1.0 # make KDIR=/kbuild/linux-4.6.5 CROSS_COMPILE=/kbuild/tools/bin/x86_64-kernelonly-linux-gnu-
+```
+
+**TODO**: add a framework for easily building of out-of-tree modules.
