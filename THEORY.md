@@ -43,3 +43,99 @@ Kernel building needs a timestamp. It can be passed to the kernel build system w
 Debian packaging needs also a timestamp (for the debian changelog). In order to remove it, the "builddeb" script in the kernel source is patched.
 
 Gzip contains also some timestamps. The compression in the kernel has already no timestamps, as a patch have been merged into the kernel source for deterministic build. The compression in the "builddeb" script is also patched, to pass the "-n" option to Gzip, which disabled the internal timestamp of Gzip.
+
+## Simple building process
+
+```
+           +--------------+
+           | Enter run.sh |
+           +--------------+
+                   |
+                   |
+                  \*/
+     +----------------------------+  Specified a .deb file
+     | Checkout for the arguments |-------------------------+
+     +----------------------------+                         |
+                   |                                        |
+                   | Have no .deb file parameter            |
+                  \*/                                       |
++-----------------------------------------+                 |
+| Check or generate the build fingerprint |                 |
++-----------------------------------------+                 |
+                   |                                        |
+                   |                     +------------------------------------+
+                   |                     | Extract the fingerprint and config |
+                   |                     +------------------------------------+
+                   |                                        |
+                   |    +-----------------------------------+
+                   |    |
+                   |    |                                               run.sh
+-------------------+----+------------------------------------------------------
+                   |    |
+                  \*/  \*/
+      +----------------------------------+
+      | Download the source of toolchain |
+      +----------------------------------+
+                       |
+                       |
+                      \*/
+              +----------------+
+              | Build binutils | The version of Binutils is specified.
+              +----------------+
+                       |
+                       |
+                      \*/
+    +--------------------------------------+
+    | Bundle supplement libraries into GCC |
+    +--------------------------------------+
+                       |
+                       |
+                      \*/
+                 +-----------+
+                 | Build GCC | The version of GCC is specified.
+                 +-----------+
+                       |
+                       |
+                      \*/
+   +----------------------------------------+
+   | Copy GCC supplement libraries' headers |
+   +----------------------------------------+
+                       |
+                       |                                    build-toolchain.sh
+-----------------------+-------------------------------------------------------
+                       |                                       build-kernel.sh
+                      \*/
+     +------------------------------------+
+     | Set a fixed fake build environemnt |
+     +------------------------------------+
+                       |
+                       |
+                      \*/
+       +------------------------------+
+       | Download linux kernel source |
+       +------------------------------+
+                       |
+                       |
+                      \*/
+        +----------------------------+
+        | Apply PaX/Grsecurity patch |
+        +----------------------------+
+                       |
+                       |
+                      \*/
+        +-----------------------------+
+        | Copy the kernel config file |
+        +-----------------------------+
+                       |
+                       |
+                      \*/
++-----------------------------------------------+
+| Use the kernel build system to build and pack | Packing process is patched.
++-----------------------------------------------+
+                       |
+                       |
+                      \*/
+          +------------------------+
+          | Copy the files to out/ |
+          +------------------------+
+```
