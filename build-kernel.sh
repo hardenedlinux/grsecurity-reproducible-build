@@ -2,6 +2,7 @@
 
 export TZ=UTC
 
+# Identity to fill the "Maintainer:" field in dpkg control file
 export DEBEMAIL="voldemort@ministry_of_magic"
 export DEBFULLNAME="Who Must Not Be Named"
 
@@ -68,6 +69,7 @@ patch -Np1 -i ../"$GRSEC_FILE"
 
 cp "$SCRIPTDIR"/fingerprint.sh .
 
+# Some variables for deterministic kernel build
 export KBUILD_BUILD_TIMESTAMP="${KERNEL_TIMESTAMP}"
 export DEB_BUILD_TIMESTAMP="$(date --date="${KERNEL_TIMESTAMP}" +%s)"
 export SOURCE_DATE_EPOCH="$DEB_BUILD_TIMESTAMP"
@@ -79,6 +81,9 @@ export ROOT_DEV=FLOPPY
 
 chmod 755 scripts/gcc-plugin.sh # Without this command, the script cannot be executed under Debian.
 
+# Here's some hacks for deterministic build
+# The first line makes the randstruct seed deterministic (with the value in fingerprint)
+# The second one uses the fingerprint timestamp as the debian changelog timestamp 
 sed "s/@SEED@/$GRSEC_RANDSTRUCT_SEED/g" < "$SCRIPTDIR"/hacks/gen-random-seed.sh.in > scripts/gcc-plugins/gen-random-seed.sh
 sed "s/@TIMESTAMP@/$KERNEL_TIMESTAMP/g" < "$SCRIPTDIR"/hacks/builddeb.in > scripts/package/builddeb
 chmod 755 scripts/package/builddeb
@@ -90,6 +95,7 @@ else
 fi
 make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- "$KERNEL_CONCUR" bindeb-pkg
 
+# Copy anything into $OUTDIR/
 cp ../*.deb "$OUTDIR"/
 cp arch/x86/boot/bzImage vmlinux "$OUTDIR"/
 make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- INSTALL_MOD_PATH="$OUTDIR" modules_install

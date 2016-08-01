@@ -1,5 +1,6 @@
 #! /bin/bash -e
 
+# Set the timezone in order to prevent strings difference like the difference between "Mon Aug  1 11:04:50 CST 2016" and "Mon Aug  1 03:04:50 UTC 2016"
 export TZ=UTC
 
 . ver.sh
@@ -106,10 +107,12 @@ if [ "$BUILD_BINUTILS" != "0" ]; then
 	mkdir -p build
 	cd build
 
+	# Configure a cross-compile toolchain
 	../configure --prefix="$TOOLS_PREFIX" \
 		     --target="$TOOLS_TRIPLET" \
 		     --enable-gold=yes --enable-plugins \
 		     --enable-threads --with-lib-path="$TOOLS_PREFIX"/lib
+	# While building cross binutils, dedicated "make configure-host" is needed
 	make configure-host
 	make "$TOOLCHAIN_CONCUR"
 	make install
@@ -124,6 +127,7 @@ tar xvfj "$GCC_TBL"
 
 cd "$GCC_DIR"
 
+# Bundle some libraries to prevent the host's difference affect the compiler
 tar xvfJ ../"$GMP_TBL"
 mv "$GMP_DIR" gmp
 tar xvfJ ../"$MPFR_TBL"
@@ -141,6 +145,8 @@ sed -i 's/gcc_cv_libc_provides_ssp=no/gcc_cv_libc_provides_ssp=yes/g' gcc/config
 mkdir -p build
 cd build
 
+# A general configure for a stage1 cross GCC
+# See http://clfs.org/view/git/x86_64-64/cross-tools/gcc-static.html for more info
 AR=ar ../configure --prefix="$TOOLS_PREFIX" --target="$TOOLS_TRIPLET" \
 		   --with-sysroot="$TOOLS_PREFIX" --disable-shared \
 		   --without-headers \
@@ -161,6 +167,7 @@ AR=ar ../configure --prefix="$TOOLS_PREFIX" --target="$TOOLS_TRIPLET" \
 make "$TOOLCHAIN_CONCUR" all-gcc all-target-libgcc
 make install-gcc install-target-libgcc
 
+# Copy some necessary headers for the bundled library, otherwise plugins won't be built
 cp gmp/gmp.h ../gmp/gmpxx.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
 cp ../mpfr/src/mpf{r,2mpfr}.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
 cp ../mpc/src/mpc.h "$("$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"-gcc -print-file-name=plugin)/include"
