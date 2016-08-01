@@ -110,7 +110,7 @@ if [ "$BUILD_BINUTILS" != "0" ]; then
 	# Configure a cross-compile toolchain
 	../configure --prefix="$TOOLS_PREFIX" \
 		     --target="$TOOLS_TRIPLET" \
-		     --enable-gold=yes --enable-plugins \
+		     --enable-plugins \
 		     --enable-threads --with-lib-path="$TOOLS_PREFIX"/lib
 	# While building cross binutils, dedicated "make configure-host" is needed
 	make configure-host
