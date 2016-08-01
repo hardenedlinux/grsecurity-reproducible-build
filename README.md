@@ -1,3 +1,13 @@
+Maintainer: Icenowy Zheng <icenowy@aosc.xyz>
+
+Thanks to:
+
+- PaX/Grsecurity
+- Debian GNU/Linux Community
+- Shawn C[a.k.a "Citypw"]
+
+Copyright (c) TYA infotech ltd http://tya.company/
+
 # Grsecurity Reproducible build scripts
 
 These scripts are intended to do reproducible build for Linux kernel with Grsecurity patch set.
@@ -100,8 +110,8 @@ acpi-call-1.1.0 # make KDIR=/kbuild/linux-4.6.5 CROSS_COMPILE=/kbuild/tools/bin/
 
 **TODO**: add a framework for easily building of out-of-tree modules.
 
-## Credits
-
-Maintainer: Icenowy Zheng <icenowy@aosc.xyz>
-
-Copyright (c) TYA infotech ltd http://tya.company/
+## Reference
+- http://www.dwheeler.com/trusting-trust/
+- https://github.com/mempo/mempo-kernel
+- https://wiki.debian.org/Mempo
+- https://wiki.debian.org/ReproducibleBuilds
