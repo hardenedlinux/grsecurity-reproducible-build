@@ -26,7 +26,11 @@ sudo mkdir /kbuild
 sudo chown kernelbuild /kbuild
 ```
 
-After preparing the directory, you can place a kernel config file named "config" in this directory, and then just run "run.sh".
+After preparing the directory, you can place a kernel config file named "config" in this directory, and then just run:
+
+```
+./run.sh
+```
 
 Some kernel configs modified to enable PaX and being deterministic is placed under configs/, include:
 
