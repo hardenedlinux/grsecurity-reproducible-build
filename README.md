@@ -11,7 +11,7 @@ The kernel building script will need the standard kernel building dependencies t
 Use the command below to install the dependencies needed.
 
 ```
-sudo apt-get install build-essential bc flex bison
+sudo apt-get install build-essential bc flex bison gnupg
 ```
 
 ## Basic Usage
