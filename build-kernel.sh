@@ -99,3 +99,23 @@ make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- "$KE
 cp ../*.deb "$OUTDIR"/
 cp arch/x86/boot/bzImage vmlinux "$OUTDIR"/
 make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- INSTALL_MOD_PATH="$OUTDIR" modules_install
+
+# build extra kernel modules
+
+if [ -d "$SCRIPTDIR"/modules ]; then
+	cp -r "$SCRIPTDIR"/modules .
+
+	cd modules
+	for i in *
+	do
+		if [ ! -d "$i" ]; then	
+			continue
+		fi
+
+		pushd $i
+			make ARCH="$LINUX_ARCH" CROSS_COMPILE="$TOOLS_PREFIX"/bin/"$TOOLS_TRIPLET"- M="$PWD" -C "$PWD/../.." modules
+			mkdir -p "$OUTDIR"/modules
+			cp *.ko "$OUTDIR"/modules
+		popd
+	done
+fi
