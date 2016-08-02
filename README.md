@@ -84,13 +84,9 @@ A shell script named "deb-diff.sh" is present to compare the content of two DPKG
 
 When this option is enabled, there will be a key embedded into the kernel, which is used to sign modules.
 
-The key is either generated at build time (from /dev/random, which made the key not reproducible), or pre-generated (which made the signing system useless, as the key-pair will be provided to anyone who wants to verify the build).
+The key is either generated at build time (from /dev/random, which made the key not reproducible), or pre-generated.
 
-Although support for pre-generated key-pair can be implemented, it's not implemented now.
-
-So the option should be *DISABLED* now.
-
-**TODO**: support for external pre-generated key-pair.
+To enable reproducible builds of this option, the CONFIG_MODULE_SIG_KEY config should be modified to specify a pem file with absolute path, and you should manually keep a copy of the pem file and place it at the same place when reproduce. (It won't be cared by the building system.)
 
 ### CONFIG_PAX_LATENT_ENTROPY (Generate some entropy during boot and runtime)
 
