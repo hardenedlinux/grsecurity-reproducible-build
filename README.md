@@ -116,7 +116,9 @@ For example, to build the acpi-call kernel module (which uses KDIR variable to i
 acpi-call-1.1.0 # make KDIR=/kbuild/linux-4.6.5 CROSS_COMPILE=/kbuild/tools/bin/x86_64-kernelonly-linux-gnu-
 ```
 
-**TODO**: add a framework for easily building of out-of-tree modules.
+Currently, some modules can be automatically built if they're placed into modules/ directory. A sample module is present, only to show how it works.
+
+The module should use the build system described in linux/Documentation/kbuild/modules.txt.
 
 ## Reference
 - http://www.dwheeler.com/trusting-trust/
