@@ -84,3 +84,6 @@ if [ ! -e concur.sh ]; then
 fi
 
 ./build-toolchain.sh && ./build-kernel.sh
+if [ -d modules ]; then
+	./build-modules.sh
+fi
