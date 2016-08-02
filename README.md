@@ -3,6 +3,7 @@ Maintainer: Icenowy Zheng <icenowy@aosc.xyz>
 Thanks to:
 
 - PaX/Grsecurity
+- Mempo project
 - Debian GNU/Linux Community
 - Shawn C[a.k.a "Citypw"]
 - Linux From Scratch
