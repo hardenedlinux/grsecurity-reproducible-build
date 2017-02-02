@@ -10,6 +10,10 @@ Thanks to:
 
 Copyright (c) TYA infotech ltd http://tya.company/
 
+# License
+
+This project is released under GPLv3.
+
 # Reproducible builds for PaX/Grsecurity
 
 These scripts are intended to do reproducible builds for Linux kernel with Grsecurity patch set.
