@@ -124,7 +124,14 @@ parisc|mips|powerpc)
 	installed_image_path="boot/vmlinux-$version"
 	;;
 *)
+if [ "$SECUREBOOT" == "ENABLE" ]; then
+	echo "Enable, continue..."
+	installed_image_path="boot/vmlinuz-$version.efi.signed"
+else
+	echo "Disabled, exit!"
 	installed_image_path="boot/vmlinuz-$version"
+fi
+
 esac
 
 BUILD_DEBUG="$(grep -s '^CONFIG_DEBUG_INFO=y' $KCONFIG_CONFIG || true)"
@@ -153,11 +160,20 @@ else
 	fi
 fi
 # Not all arches include the boot path in KBUILD_IMAGE
-if [ -e $KBUILD_IMAGE ]; then
-	cp $KBUILD_IMAGE "$tmpdir/$installed_image_path"
+if [ "$SECUREBOOT" == "ENABLE" ]; then
+	if [ -e $KBUILD_IMAGE ]; then
+		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_image_path" $KBUILD_IMAGE
+	else
+		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_image_path" arch/$ARCH/boot/$KBUILD_IMAGE
+	fi
 else
-	cp arch/$ARCH/boot/$KBUILD_IMAGE "$tmpdir/$installed_image_path"
+	if [ -e $KBUILD_IMAGE ]; then
+		cp $KBUILD_IMAGE "$tmpdir/$installed_image_path"
+	else
+		cp arch/$ARCH/boot/$KBUILD_IMAGE "$tmpdir/$installed_image_path"
+	fi
 fi
+
 
 if grep -q "^CONFIG_OF=y" $KCONFIG_CONFIG ; then
 	# Only some architectures with OF support have this target

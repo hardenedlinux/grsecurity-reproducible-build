@@ -79,6 +79,11 @@ export KCONFIG_NOTIMESTAMP=1
 export XZ_OPT="--check=crc64"
 export ROOT_DEV=FLOPPY
 
+# trustchain
+export SECUREBOOT
+export DB_KEY
+export DB_CERT
+
 chmod 755 scripts/gcc-plugin.sh # Without this command, the script cannot be executed under Debian.
 
 # Here's some hacks for deterministic build
