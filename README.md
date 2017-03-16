@@ -126,6 +126,16 @@ Currently, some modules can be automatically built if they're placed into module
 
 The module should use the build system described in linux/Documentation/kbuild/modules.txt.
 
+## Signature siging for Secure Boot
+
+There are 3 parameters in ver.sh:
+
+* SECUREBOOT, "ENABLE": ENABLE the signature signing in build systems. If you don't need it, just ignore it.
+* DB_KEY/DB_CERT, the Authorized Signatures Database should be located in this path
+
+Be aware of that only the signed file( e.g: vmlinuz-4.9.15-grsec.efi.signed) should be not reproducible. You build server may be compromised if you find other files being different.
+
+
 ## Reference
 - http://www.dwheeler.com/trusting-trust/
 - https://github.com/mempo/mempo-kernel

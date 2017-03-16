@@ -133,7 +133,10 @@ Gzip contains also some timestamps. The compression in the kernel has already no
 | Use the kernel build system to build and pack | Packing process is patched.
 +-----------------------------------------------+
                        |
-                       |
+		       |
+		       |                        +------------------+
+		       |<-----------------------| signing vmlinuz* |
+                       |                        +------------------+
                       \*/
           +------------------------+
           | Copy the files to out/ |
