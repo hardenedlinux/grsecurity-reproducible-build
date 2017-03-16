@@ -126,7 +126,9 @@ parisc|mips|powerpc)
 *)
 if [ "$SECUREBOOT" == "ENABLE" ]; then
 	echo "Enable, continue..."
-	installed_image_path="boot/vmlinuz-$version.efi.signed"
+	installed_secure_image_path="boot/vmlinuz-$version.efi.signed"
+	installed_image_path="boot/vmlinuz-$version"
+	kernel_image="vmlinuz-$version"
 else
 	echo "Disabled, exit!"
 	installed_image_path="boot/vmlinuz-$version"
@@ -162,9 +164,11 @@ fi
 # Not all arches include the boot path in KBUILD_IMAGE
 if [ "$SECUREBOOT" == "ENABLE" ]; then
 	if [ -e $KBUILD_IMAGE ]; then
-		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_image_path" $KBUILD_IMAGE
+		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_secure_image_path" $KBUILD_IMAGE
+		cd "$tmpdir/boot" && ln -sf $kernel_image.efi.signed $kernel_image && cd -
 	else
-		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_image_path" arch/$ARCH/boot/$KBUILD_IMAGE
+		sbsign --key $DB_KEY --cert $DB_CERT --output "$tmpdir/$installed_secure_image_path" arch/$ARCH/boot/$KBUILD_IMAGE
+		cd "$tmpdir/boot" && ln -sf $kernel_image.efi.signed $kernel_image && cd -
 	fi
 else
 	if [ -e $KBUILD_IMAGE ]; then
